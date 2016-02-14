@@ -1,5 +1,7 @@
 # Skeppa
 
+A deployment tool based on docker-compose and fabric. Work in progress.
+
 
 # Credits
 - http://www.asktherelic.com/2011/02/17/dynamic-fabric-commands-for-managing-cloud-servers/
