@@ -2,19 +2,7 @@ import inspect
 import sys
 import yaml
 
-from fabric.tasks import Task
 from fabric.state import env
-
-
-#class CustomTask(Task):
-    #def __init__(self, func, myarg, *args, **kwargs):
-        #super(CustomTask, self).__init__(*args, **kwargs)
-        #self.func = func
-        #self.myarg = myarg
-
-    #def run(self, *args, **kwargs):
-        #print("RUN!")
-        #return self.func(*args, **kwargs)
 
 
 def _create_stage(stage_config):
