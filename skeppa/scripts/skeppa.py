@@ -17,7 +17,7 @@ def main():
                 break
 
     path = os.path.dirname(os.path.abspath(__file__))
-    fabric.main.main([os.path.join(path, 'skeppa/skeppa.py')])
+    fabric.main.main([os.path.join(path, '../skeppa.py')])
 
 
 if __name__ == '__main__':
