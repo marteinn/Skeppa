@@ -2,6 +2,11 @@
 
 A deployment tool based on docker-compose and fabric. Work in progress.
 
+## Installation
+
+### Develop
+`pip install git+git://github.com/marteinn/skeppa.git@develop`
+
 
 ## TODO:
 - Handle aws dependency for ecr extension

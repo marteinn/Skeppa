@@ -46,7 +46,7 @@ setup(
     packages=packages,
     include_package_data=True,
     install_requires=install_requires,
-    tests_require=tests_require,
+    # tests_require=tests_require,
     entry_points={
         "console_scripts": [
             "skeppa = skeppa.scripts.skeppa:main",
