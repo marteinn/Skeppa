@@ -1,0 +1,4 @@
+# Add develpment requirements here
+pypandoc==0.9.9
+neovim
+pipdeptree

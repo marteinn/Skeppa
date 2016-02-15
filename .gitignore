@@ -1,1 +1,14 @@
-venv
+# Virtualenv
+venv/
+
+# Environment
+.env
+
+# Python specific, Byte-compiled / optimized / DLL files
+*.pyc
+__pycache__/
+*.py[cod]
+
+# Fabric
+fabricrc.txt
+.fabricrc

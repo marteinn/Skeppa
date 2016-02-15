@@ -1,0 +1,40 @@
+prod:
+    project: hello1
+    hosts: {{ PROD_HOST }}
+    user: {{ PROD_USER }}
+    path: {{ PROD_PATH }}
+    forward_agent: true
+    key_filename: {{ PROD_KEY_FILENAME }}
+    image:
+        tag: latest
+        name: django-test
+        path: src
+        repository:
+            type: ecr
+            aws_region: us-east-1
+            aws_local_profile: {{ PROD_AWS_LOCAL_PROFILE }}
+            url: {{ PROD_REPRO_URL }}
+    env_files:
+        - web.env
+        - db.env
+    compose_files: docker-compose-prod.yml
+    files:
+        - db/data
+        - nginx/conf/nginx.conf:nginx.conf
+
+dev:
+    project: hello2
+    path: /home/vagrant/hello2
+    hosts: ssh.hello.com
+    user: marteinn
+    forward_agent: true
+    key_filename: id_rsa.pub
+    tag: dev
+    registry:
+        - type: aws
+        - aws_region: us-east-1
+        - url: cookie
+    env_files:
+        - web.env
+        - db.env
+    compose_files: docker-compose-prod.yml
