@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 
 from . import Extension
-from fabric.api import env, local, run
+from fabric.api import local, run
 
 
 class Ecr(Extension):
@@ -47,5 +47,7 @@ class Ecr(Extension):
                 continue
             auth_command += " --%s=%s" % (arg, auth_args[arg])
 
-        print(auth_command)
         method("$(%s)" % auth_command)
+
+
+extension = Ecr

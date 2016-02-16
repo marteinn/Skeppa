@@ -2,6 +2,7 @@ import sys
 import os
 import yaml
 import six
+import importlib
 from jinja2 import Template
 
 from fabric.api import run
@@ -9,10 +10,10 @@ from fabric.decorators import task
 from fabric.contrib.files import exists
 from fabric.context_managers import cd
 from fabric.state import env
+from fabric.utils import abort
 
 from api import ping, setup, build, deploy, push  # NOQA
 import ext
-from ext.ecr import Ecr
 
 
 def _create_stage(name, stage_config):
@@ -28,9 +29,7 @@ def _create_stage(name, stage_config):
     return task(stage_wrap)
 
 
-def _create_stages_from_config(config_path):
-    stages = None
-
+def _load_config(config_path):
     current_dir = os.getcwd()
     config_file = os.path.join(current_dir, config_path)
 
@@ -38,8 +37,12 @@ def _create_stages_from_config(config_path):
         config_yaml = stream.read()
 
     config_yaml = Template(config_yaml).render(**env)
-    stages = yaml.load(config_yaml)
+    config = yaml.load(config_yaml)
 
+    return config
+
+
+def _create_stages(stages):
     for name in stages:
         stage = stages[name]
         stage = _normalize_config(stage)
@@ -65,7 +68,16 @@ def _normalize_config(config):
 
 
 if __name__ == 'fabfile':
-    ext.register(Ecr)
-
     config_path = 'skeppa.yml'
-    _create_stages_from_config(config_path)
+    if not os.path.exists(config_path):
+        abort('Config file {0} was not found'.format(config_path))
+
+    config = _load_config(config_path)
+    extensions = config.pop('extensions', [])
+
+    for ext_name in extensions:
+        extension = importlib.import_module('ext.{0}'.format(ext_name))
+
+        ext.register(extension.extension)
+
+    _create_stages(config)

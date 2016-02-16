@@ -1,3 +1,5 @@
+extensions:
+    - ecr
 prod:
     project: hello1
     hosts: {{ PROD_HOST }}
