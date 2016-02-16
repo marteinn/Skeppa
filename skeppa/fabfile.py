@@ -66,5 +66,5 @@ def _normalize_config(config):
 
 ext.register(Ecr)
 
-config_path = '../skeppa.yml'
+config_path = 'skeppa.yml'
 _create_stages_from_config(config_path)
