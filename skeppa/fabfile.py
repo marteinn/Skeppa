@@ -64,7 +64,8 @@ def _normalize_config(config):
     return config
 
 
-ext.register(Ecr)
+if __name__ == 'fabfile':
+    ext.register(Ecr)
 
-config_path = 'skeppa.yml'
-_create_stages_from_config(config_path)
+    config_path = 'skeppa.yml'
+    _create_stages_from_config(config_path)
