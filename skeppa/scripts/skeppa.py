@@ -18,7 +18,7 @@ def main():
                 break
 
     path = os.path.dirname(os.path.abspath(__file__))
-    fabric.main.main([os.path.join(path, '../fabfile.py')])
+    fabric.main.main([os.path.join(path, '../main.py')])
 
 
 if __name__ == '__main__':

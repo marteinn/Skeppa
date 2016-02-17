@@ -12,7 +12,7 @@ To install Skeppa you need Python 2.7, docker and docker-compose.
 
 ### Stable
 
-	pip install skeppa
+    pip install skeppa
 
 ### Develop
 
@@ -42,16 +42,16 @@ Time to setup deployment instructions. This simple example below will try to bui
                 url: registry.mydomain.com/app-image
         compose_files: docker-compose.yml
     ```
-    
+
     _(This example requires docker image called `app` in your project folder, a working docker repository and a working `docker-compose.yml`)._
-    
+
 3. Now run `skeppa prod setup`, this will upload `docker-compose-prod.yml` to your prod path.
 4. Time to build and push your docker image, `skeppa prod build deploy`
 5. Now when the image has been built and is in your repository, type `skeppa prod deploy` to deploy the image on your remote machine.
 6. Done!
-    
+
 Want more [examples](https://github.com/marteinn/Skeppa/tree/develop/examples/)?
-    
+
 
 ## Usage
 
