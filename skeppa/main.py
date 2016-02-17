@@ -45,8 +45,11 @@ def _load_config(config_path):
 def _create_stages(stages):
     for name in stages:
         stage = stages[name]
-        stage = _normalize_config(stage)
 
+        if not isinstance(stage, dict):
+            abort('"{0}" is not a valid environment/stage'.format(name))
+
+        stage = _normalize_config(stage)
         module_obj = sys.modules[__name__]
         setattr(module_obj, name, _create_stage(name, stage))
 
