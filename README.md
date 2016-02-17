@@ -52,6 +52,14 @@ Time to setup deployment instructions. This simple example below will try to bui
 
 Want more [examples](https://github.com/marteinn/Skeppa/tree/develop/examples/)?
 
+## FAQ
+
+- How can I supply env-variables to skeppa?
+    - Since skappa is based on fabric, just `-c yourfile.env` when running your command. Skeppa will try load either skeppa.env, fabricrc.txt or .fabricrc from your cwd.
+
+- How can I include env-variables in my `skeppa.yaml`?
+    - Just define your variables like this `{{ MY_VAR }}`. Example: `host: {{ HOST }}`.
+
 
 ## Usage
 
