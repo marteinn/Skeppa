@@ -67,7 +67,7 @@ def _normalize_config(config):
     return config
 
 
-if __name__ == 'fabfile':
+if __name__ == 'main':
     config_path = 'skeppa.yml'
     if not os.path.exists(config_path):
         abort('Config file {0} was not found'.format(config_path))
