@@ -40,7 +40,7 @@ prod:
         # The repository you wish to deploy your image to
         repository:
             # Repository url
-            url: {{ PROD_REPRO_URL }}
+            url: myrepro.com/myimage
 
             # Type of registry, using ecr will trigger the ecr extension (Optional)
             type: ecr
@@ -51,7 +51,7 @@ prod:
             aws_region: us-east-1
 
             # Your local awscli profile (Optional)
-            aws_local_profile: {{ PROD_AWS_LOCAL_PROFILE }}
+            aws_local_profile: my_local_profile
 
     # Any env file you want to upload and associate with container (is located in docker-compose-config and will be saved to prod.path/docker-compose-config)
     env_files:
