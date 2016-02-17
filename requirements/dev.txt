@@ -2,3 +2,4 @@
 pypandoc==0.9.9
 neovim
 pipdeptree
+isort

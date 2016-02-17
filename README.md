@@ -1,11 +1,16 @@
 # Skeppa
 
-A docker(compose) deployment tool built in python. 
+A docker deployment tool built in python. It is based on [fabric](http://www.fabfile.org/) and uses docker-compose to orchestrate and manage containers.
+
+
+## Requirements
+
+To install Skeppa you need Python 2.7, docker and docker-compose.
 
 
 ## Installation
 
-### Prod
+### Stable
 
 	pip install skeppa
 
@@ -24,8 +29,6 @@ Time to setup deployment instructions. This simple example below will try to bui
 2. In your skeppa.yaml, add the following:
 
     ```yaml
-    extensions:
-        - ecr
     prod:
         project: test-project
         hosts: ssh.yourhost.com
@@ -33,19 +36,18 @@ Time to setup deployment instructions. This simple example below will try to bui
         path: /home/youruser/yourproject/
         key_filename: ~/.ssh/id_rsa.pub
         image:
-            tag: latest
             name: app
             path: app
             repository:
                 url: registry.mydomain.com/app-image
-        compose_files: docker-compose-prod.yml
+        compose_files: docker-compose.yml
     ```
     
-    _(This example requires docker image called `app` in your project folder, a working docker repository and a working `docker-compose-prod.yml`)._
+    _(This example requires docker image called `app` in your project folder, a working docker repository and a working `docker-compose.yml`)._
     
-3. Now run `skeppa setup`, this will upload `docker-compose-prod.yml` to your prod path.
-4. Time to build and push your docker image, `skeppa build deploy`
-5. Now when the image has been built and is in your repository, type `skeppa deploy` to deploy the image on your remote machine.
+3. Now run `skeppa prod setup`, this will upload `docker-compose-prod.yml` to your prod path.
+4. Time to build and push your docker image, `skeppa prod build deploy`
+5. Now when the image has been built and is in your repository, type `skeppa prod deploy` to deploy the image on your remote machine.
 6. Done!
     
 Want more [examples](https://github.com/marteinn/Skeppa/tree/develop/examples/)?
@@ -63,16 +65,20 @@ The tool consists of 4 commands, they can run in conjunction with eachother.
 |deploy|Pulls down docker image on remote and runs `docker-compose up`|`skeppa <environment> deploy`|
 
 
+## Skeppa?
+
+The name is a wordplay with the swedish word for ship = skeppa.
+
+
 ## TODO:
 - [x] Handle aws dependency for ecr extension
 - [ ] Add image cleanup for ecr extension
 - [x] Find out the best way to create a 'pluggable' extension system
 - [ ] Publish on pip
-
-
-## Skeppa?
-
-The name is a wordplay with the swedish word for ship = skeppa.
+- [ ] Add the option to specify your own config
+- [ ] Add autoload for the config file skepparc.txt
+- [ ] Rename fabfile to main
+- [ ] Add annotated skeppa.yaml
 
 
 ## Credits/refefences
