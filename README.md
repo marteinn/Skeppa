@@ -84,9 +84,10 @@ The name is a wordplay with the swedish word for ship = skeppa.
 - [x] Find out the best way to create a 'pluggable' extension system
 - [ ] Publish on pip
 - [ ] Add the option to specify your own config
-- [ ] Add autoload for the config file skepparc.txt
-- [ ] Rename fabfile to main
+- [x] Add autoload for the config file skepparc.txt
+- [x] Rename fabfile to main
 - [ ] Add annotated skeppa.yaml
+- [ ] Add tests
 
 
 ## Credits/refefences
