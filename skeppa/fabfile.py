@@ -1,19 +1,19 @@
-import sys
-import os
-import yaml
-import six
 import importlib
-from jinja2 import Template
+import os
+import sys
 
+import six
+import yaml
 from fabric.api import run
-from fabric.decorators import task
-from fabric.contrib.files import exists
 from fabric.context_managers import cd
+from fabric.contrib.files import exists
+from fabric.decorators import task
 from fabric.state import env
 from fabric.utils import abort
+from jinja2 import Template
 
-from api import ping, setup, build, deploy, push  # NOQA
 import ext
+from api import build, deploy, ping, push, setup  # NOQA
 
 
 def _create_stage(name, stage_config):

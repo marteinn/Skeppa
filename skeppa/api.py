@@ -1,11 +1,10 @@
 import os
+
 import six
-
-from fabric.decorators import task
-from fabric.state import env
-from fabric.operations import put
 from fabric.api import local
-
+from fabric.decorators import task
+from fabric.operations import put
+from fabric.state import env
 from utils import dockerfile
 import ext
 

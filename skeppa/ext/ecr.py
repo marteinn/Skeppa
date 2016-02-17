@@ -1,7 +1,8 @@
 from __future__ import absolute_import
 
-from . import Extension
 from fabric.api import local, run
+
+from . import Extension
 
 
 class Ecr(Extension):
