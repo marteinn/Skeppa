@@ -46,6 +46,10 @@ Time to setup deployment instructions. This simple example below will try to bui
     ```
 
     _(This example requires docker image called `app` in your project folder, a working docker repository and a working `docker-compose.yml`)._
+    
+    _Want a full annotated [skeppa.yaml](https://github.com/marteinn/Skeppa/blob/develop/skeppa.annotated.yaml)?_
+    
+
 
 3. Now run `skeppa prod setup`, this will upload `docker-compose-prod.yml` to your prod path.
 4. Time to build and push your docker image, `skeppa prod build`
@@ -53,6 +57,7 @@ Time to setup deployment instructions. This simple example below will try to bui
 6. Done!
 
 Want more [examples](https://github.com/marteinn/Skeppa/tree/develop/examples/)?
+
 
 ## FAQ
 
@@ -88,7 +93,7 @@ The name is a wordplay with the swedish word for ship = skeppa.
 - [ ] Add the option to specify your own config
 - [x] Add autoload for the config file skepparc.txt
 - [x] Rename fabfile to main
-- [ ] Add annotated skeppa.yaml
+- [x] Add annotated skeppa.yaml
 - [ ] Add tests
 
 
