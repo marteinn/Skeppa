@@ -1,26 +1,24 @@
 # Skeppa
 
-A deployment tool based on docker-compose and fabric. Work in progress.
+A docker(compose) deployment tool built in python. 
 
 
 ## Installation
+
+### Prod
+
+	pip install skeppa
 
 ### Develop
 
     pip install git+git://github.com/marteinn/skeppa.git@develop
 
 
-
 ## Getting started
 
-First off, head to your project folder to install skeppa.
+First off, head to your project and install skeppa: `pip install skeppa`.
 
-1. First cd to folder: `cd ~/projects/myproject/`
-1. Then setup a virtualenv called venv in your project folder: `virtualenv venv`
-1. Activate the environment: `source venv/bin/activate`
-1. Now time to install fabrik: `pip install skeppa`
-
-Skeppa is now installed, time to create the `skeppa.yml` file. This file will contain all the deployment instructions you'll need.
+Time to setup deployment instructions. This simple example below will try to build a image called app, push to registry, then deploy on remote machine using the docker-compose file `docker-compose-prod.yml`
 
 1. `touch skeppa.yaml`
 2. In your skeppa.yaml, add the following:
@@ -29,31 +27,40 @@ Skeppa is now installed, time to create the `skeppa.yml` file. This file will co
     extensions:
         - ecr
     prod:
-        project: hello1
+        project: test-project
         hosts: ssh.yourhost.com
         user:  ssh-user
         path: /home/youruser/yourproject/
-        forward_agent: true
         key_filename: ~/.ssh/id_rsa.pub
         image:
             tag: latest
-            name: django-test
-            path: src
+            name: app
+            path: app
             repository:
-                type: ecr
-                aws_region: us-east-1
-                url: 999999999.dkr.ecr.us-east-1.amazonaws.com/docker-image
+                url: registry.mydomain.com/app-image
         compose_files: docker-compose-prod.yml
     ```
-
-    This example uses aws-erc as a repository for your image (django-test)
-
+    
+    _(This example requires docker image called `app` in your project folder, a working docker repository and a working `docker-compose-prod.yml`)._
+    
+3. Now run `skeppa setup`, this will upload `docker-compose-prod.yml` to your prod path.
+4. Time to build and push your docker image, `skeppa build deploy`
+5. Now when the image has been built and is in your repository, type `skeppa deploy` to deploy the image on your remote machine.
+6. Done!
+    
+Want more [examples](https://github.com/marteinn/Skeppa/tree/develop/examples/)?
+    
 
 ## Usage
 
-- Run a test command against the prod environment
+The tool consists of 4 commands, they can run in conjunction with eachother.
 
-    `skeppa prod ping`
+|Command|Description|Example|
+|----------|-------------|-------------|
+|setup|Initializes you application by creating the necessary directories/files. Must run first|`skeppa <environment> setup`|
+|build|Builds docker images specified in config|`skeppa <environment> build`|
+|push|Pushes docker image to registry|`skeppa <environment> push`|
+|deploy|Pulls down docker image on remote and runs `docker-compose up`|`skeppa <environment> deploy`|
 
 
 ## TODO:
@@ -63,9 +70,15 @@ Skeppa is now installed, time to create the `skeppa.yml` file. This file will co
 - [ ] Publish on pip
 
 
-## Credits
-- http://www.asktherelic.com/2011/02/17/dynamic-fabric-commands-for-managing-cloud-servers/
-- http://www.saltycrane.com/blog/2010/09/class-based-fabric-scripts-metaprogramming-hack/
+## Skeppa?
+
+The name is a wordplay with the swedish word for ship = skeppa.
+
+
+## Credits/refefences
+
+- [Dynamic Fabric Commands For Managing Cloud Servers](http://www.asktherelic.com/2011/02/17/dynamic-fabric-commands-for-managing-cloud-servers/)
+- [Class-based Fabric scripts via a Python metaprogramming hack](http://www.saltycrane.com/blog/2010/09/class-based-fabric-scripts-metaprogramming-hack/)
 
 
 ## Contributing
