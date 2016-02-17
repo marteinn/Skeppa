@@ -1,0 +1,21 @@
+prod:
+    project: test-project
+    hosts: {{ PROD_HOST }}
+    user: {{ PROD_USER }}
+    path: {{ PROD_PATH }}
+    forward_agent: true
+    key_filename: {{ PROD_KEY_FILENAME }}
+    image:
+        tag: latest
+        name: django-test
+        path: src
+        repository:
+            url: {{ PROD_REPRO_URL }}
+    env_files:
+        - web.env
+        - db.env
+    compose_files: docker-compose-prod.yml
+    files:
+        - db/data
+        - nginx/conf/nginx.conf:nginx.conf
+
