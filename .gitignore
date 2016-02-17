@@ -12,3 +12,6 @@ __pycache__/
 # Fabric
 fabricrc.txt
 .fabricrc
+
+dist
+*.egg-info
