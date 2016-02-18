@@ -1,3 +1,5 @@
+[![PyPI version](https://badge.fury.io/py/skeppa.svg)](https://badge.fury.io/py/skeppa)
+
 # Skeppa
 
 A docker deployment tool built in python. It is based on [fabric](http://www.fabfile.org/) and uses docker-compose to orchestrate and manage containers.
@@ -44,13 +46,18 @@ Time to setup deployment instructions. This simple example below will try to bui
     ```
 
     _(This example requires docker image called `app` in your project folder, a working docker repository and a working `docker-compose.yml`)._
+    
+    _Want a full annotated [skeppa.yaml](https://github.com/marteinn/Skeppa/blob/develop/skeppa.annotated.yaml)?_
+    
+
 
 3. Now run `skeppa prod setup`, this will upload `docker-compose-prod.yml` to your prod path.
-4. Time to build and push your docker image, `skeppa prod build deploy`
+4. Time to build and push your docker image, `skeppa prod build`
 5. Now when the image has been built and is in your repository, type `skeppa prod deploy` to deploy the image on your remote machine.
 6. Done!
 
 Want more [examples](https://github.com/marteinn/Skeppa/tree/develop/examples/)?
+
 
 ## FAQ
 
@@ -82,11 +89,11 @@ The name is a wordplay with the swedish word for ship = skeppa.
 - [x] Handle aws dependency for ecr extension
 - [ ] Add image cleanup for ecr extension
 - [x] Find out the best way to create a 'pluggable' extension system
-- [ ] Publish on pip
+- [x] Publish on pip
 - [ ] Add the option to specify your own config
 - [x] Add autoload for the config file skepparc.txt
 - [x] Rename fabfile to main
-- [ ] Add annotated skeppa.yaml
+- [x] Add annotated skeppa.yaml
 - [ ] Add tests
 
 

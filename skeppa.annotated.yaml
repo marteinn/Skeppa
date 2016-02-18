@@ -1,0 +1,74 @@
+# The extensions you wish to utlize
+extensions:
+    - ecr
+    - another_extension
+
+# Configuration for our production stage
+prod:
+    # Project name, will be used by docker-compose as the "p" argument
+    project: hello1
+
+    # The host(s) you wish to deploy to (Example: ssh.server.com)
+    hosts: ssh.server.com
+
+    # SSH user
+    user: admin
+
+    # SSH password (Optional if you have a ssh-key)
+    password: mypassword
+
+    # The path where docker-compose wil run from and any files uploaded to
+    path: /home/ubuntu/
+
+    # If the ssh key should be forwarded (Optional)
+    forward_agent: true
+
+    # Your ssh-key (optional if you use a password)
+    key_filename: ~/.ssh/id_rsa.pub
+
+    # Configuration about the docker image you wish to build
+    image:
+        # The docker tag you wish to pull from and use when pushing
+        tag: latest
+
+        # Local docker image name
+        name: django-test
+
+        # Path to docker image
+        path: src
+
+        # The repository you wish to deploy your image to
+        repository:
+            # Repository url
+            url: myrepro.com/myimage
+
+            # Type of registry, using ecr will trigger the ecr extension (Optional)
+            type: ecr
+
+            # ECR Extension specific settings
+
+            # The region where your image are saved (Optional, is "us-east-1" by default)
+            aws_region: us-east-1
+
+            # Your local awscli profile (Optional)
+            aws_local_profile: my_local_profile
+
+    # Any env file you want to upload and associate with container (is located in docker-compose-config and will be saved to prod.path/docker-compose-config)
+    env_files:
+        - web.env
+        - db.env
+
+    # Path to the compose-config files you want to use (will be saved to prod.path)
+    compose_files: docker-compose-prod.yml
+
+    # Any extra files you want to upload
+    files:
+        # If no remote path is specified a directory will be created (at prod.path/docker/var)
+        - db/data
+
+        # Will upload the file from pwd/files/nginx.conf to prod.path/nginx/conf/nginx.conf
+        - nginx/conf/nginx.conf:nginx.conf
+
+# Another stage configuration
+dev:
+    ...

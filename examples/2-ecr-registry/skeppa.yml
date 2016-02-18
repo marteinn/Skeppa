@@ -23,7 +23,7 @@ prod:
         - db/data
         - nginx/conf/nginx.conf:nginx.conf
 
-prod:
+stage:
     project: test-project
     hosts: {{ STAGE_HOST }}
     user: {{ STAGE_USER }}
