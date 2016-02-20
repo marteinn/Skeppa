@@ -1,13 +1,20 @@
 from __future__ import absolute_import
 
+import imp
+
 from fabric.api import local, run
+from fabric.utils import abort
 
 from . import Extension
 
 
 class Ecr(Extension):
     def register(self):
-        pass
+        try:
+            imp.find_module('awscli')
+        except ImportError:
+            abort('The ecr extension requires the awscli package '\
+                  '(hint: pip install awscli)')
 
     def _verify_image(self, image):
         repository = image.get('repository')
