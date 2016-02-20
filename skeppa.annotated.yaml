@@ -1,7 +1,18 @@
-# The extensions you wish to utlize
-extensions:
-    - ecr
-    - another_extension
+# Deploy settings
+settings:
+    # The extensions you wish to utlize
+    extensions:
+        - ecr
+
+    # Path to container env files
+    env_files_dir: docker-compose-config
+
+    # Path to container required files
+    files_dir: docker-compose-files
+
+    # Remote path to mounted volumesRemote path to mounted volumes
+    mount_dir: docker/var
+
 
 # Configuration for our production stage
 prod:
@@ -69,6 +80,7 @@ prod:
         # Will upload the file from pwd/files/nginx.conf to prod.path/nginx/conf/nginx.conf
         - nginx/conf/nginx.conf:nginx.conf
 
-# Another stage configuration
+
+# Configuration for our dev stage
 dev:
-    ...
+    - example

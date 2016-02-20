@@ -15,3 +15,7 @@ fabricrc.txt
 
 dist
 *.egg-info
+
+# Skeppa
+skeppa.yml
+skeppa.yaml

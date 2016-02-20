@@ -6,6 +6,7 @@ from fabric.decorators import task
 from fabric.operations import put
 from fabric.state import env
 from utils import dockerfile
+import settings as skeppa_settings
 import ext
 
 
@@ -24,12 +25,14 @@ def setup():
     '''
     Perform initial setup (create docker-compose-config and mount dirs)
     '''
+    settings = skeppa_settings.get_settings()
+
     # Create compose config files
-    remote_conf_dir = os.path.join(env.path, 'docker-compose-config')
+    remote_conf_dir = os.path.join(env.path, settings.env_files_dir)
     env.run('mkdir -p {0}'.format(remote_conf_dir))
 
     # Create mount dir
-    mount_dir = os.path.join(env.path, 'docker/var')
+    mount_dir = os.path.join(env.path, settings.mount_dir)
     env.run('mkdir -p {0}'.format(mount_dir))
 
     # Upload files
@@ -44,8 +47,10 @@ def setup():
 
 
 def _upload_files(files):
-    mount_dir = os.path.join(env.path, 'docker/var')
-    local_files_dir = os.path.join(os.getcwd(), 'fabric/files')
+    settings = skeppa_settings.get_settings()
+
+    mount_dir = os.path.join(env.path, settings.mount_dir)
+    local_files_dir = os.path.join(os.getcwd(), settings.files_dir)
     formatted_list = []
 
     # Construct a formatted files to be uploaded/created list
@@ -80,9 +85,11 @@ def _upload_files(files):
 
 
 def _upload_env_files(env_files):
+    settings = skeppa_settings.get_settings()
+
     current_dir = os.getcwd()
-    local_conf_dir = os.path.join(current_dir, 'docker-compose-config')
-    remote_conf_dir = os.path.join(env.path, 'docker-compose-config')
+    local_conf_dir = os.path.join(current_dir, settings.env_files_dir)
+    remote_conf_dir = os.path.join(env.path, settings.env_files_dir)
 
     env_files = env_files
     for env_file in env_files:
@@ -171,4 +178,4 @@ def deploy():
 
     # Restart web container
     env.run("docker-compose -f {0} -p {1} up -d".format(compose_file,
-                                                     env.project))
+                                                        env.project))
