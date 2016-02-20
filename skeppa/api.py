@@ -2,7 +2,7 @@ import os
 
 import six
 from fabric.api import local
-from fabric.decoratora import task
+from fabric.decorators import task
 from fabric.operations import put
 from fabric.api import cd
 from fabric.state import env
