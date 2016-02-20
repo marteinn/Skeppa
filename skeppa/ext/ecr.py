@@ -13,7 +13,7 @@ class Ecr(Extension):
         try:
             imp.find_module('awscli')
         except ImportError:
-            abort('The ecr extension requires the awscli package '\
+            abort('The ecr extension requires the awscli package '
                   '(hint: pip install awscli)')
 
     def _verify_image(self, image):

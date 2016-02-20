@@ -121,12 +121,13 @@ def _build_image(image):
     image_path = os.path.join(current_dir, image.get('path'))
     version = dockerfile.read_tag(image_path)
 
-    local("docker build -t {0} {1}".format(image.get('name'), image_path))
-
     # Tag release (master/develop)
     use_versioning = image.get('use_versioning', False)
     repository = image.get('repository')
     release_tag = image.get('tag', 'latest')
+
+    local("docker build -t {0}:{1} {2}".format(image.get('name'), release_tag,
+                                               image_path))
 
     if use_versioning and version:
         local("docker build -t {0}:{1} {2}".format(repository['url'],
