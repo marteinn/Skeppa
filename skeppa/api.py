@@ -124,10 +124,11 @@ def _build_image(image):
     local("docker build -t {0} {1}".format(image.get('name'), image_path))
 
     # Tag release (master/develop)
+    use_versioning = image.get('use_versioning', False)
     repository = image.get('repository')
     release_tag = image.get('tag', 'latest')
 
-    if version:
+    if use_versioning and version:
         local("docker build -t {0}:{1} {2}".format(repository['url'],
                                                    version,
                                                    image_path))
@@ -150,11 +151,12 @@ def _push_image(image):
     current_dir = os.getcwd()
     image_path = os.path.join(current_dir, image.get('path'))
     version = dockerfile.read_tag(image_path)
+    use_versioning = image.get('use_versioning', False)
 
     repository = image.get('repository')
     release_tag = image.get('tag', 'latest')
 
-    if version:
+    if use_versioning and version:
         local("docker push {0}:{1}".format(repository['url'], version))
 
     local("docker push {0}:{1}".format(repository['url'], release_tag))

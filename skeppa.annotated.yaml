@@ -56,6 +56,12 @@ prod:
             # Type of registry, using ecr will trigger the ecr extension (Optional)
             type: ecr
 
+            # The tag that will be used when pushing/pulling (Default is 'latest')
+            tag: latest
+
+            # If True, skeppa will try push both a versioned image and with regular tag (Default is False)
+            use_versioning: False
+
             # ECR Extension specific settings
 
             # The region where your image are saved (Optional, is "us-east-1" by default)
