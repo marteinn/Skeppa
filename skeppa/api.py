@@ -2,7 +2,8 @@ import os
 
 import six
 from fabric.api import local
-from fabric.operations import put, task
+from fabric.decoratora import task
+from fabric.operations import put
 from fabric.api import cd
 from fabric.state import env
 from utils import dockerfile
