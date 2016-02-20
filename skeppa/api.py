@@ -2,8 +2,8 @@ import os
 
 import six
 from fabric.api import local
-from fabric.decorators import task
-from fabric.operations import put
+from fabric.operations import put, task
+from fabric.api import cd
 from fabric.state import env
 from utils import dockerfile
 import settings as skeppa_settings
@@ -168,17 +168,18 @@ def deploy():
     '''
     Pull latest image and restart containers
     '''
-    image = env.image
-    compose_file = env.compose_files[0]
+    with cd(env.path):
+        image = env.image
+        compose_file = env.compose_files[0]
 
-    ext.dispatch("before_deploy", image)
+        ext.dispatch("before_deploy", image)
 
-    repository = image.get('repository')
-    release_tag = image.get('tag', 'latest')
+        repository = image.get('repository')
+        release_tag = image.get('tag', 'latest')
 
-    # Pull latest repro changes
-    env.run("docker pull {0}:{1}".format(repository['url'], release_tag))
+        # Pull latest repro changes
+        env.run("docker pull {0}:{1}".format(repository['url'], release_tag))
 
-    # Restart web container
-    env.run("docker-compose -f {0} -p {1} up -d".format(compose_file,
-                                                        env.project))
+        # Restart web container
+        env.run("docker-compose -f {0} -p {1} up -d".format(compose_file,
+                                                            env.project))
