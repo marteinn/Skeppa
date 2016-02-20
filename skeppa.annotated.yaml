@@ -1,7 +1,18 @@
-# The extensions you wish to utlize
-extensions:
-    - ecr
-    - another_extension
+# Deploy settings
+settings:
+    # The extensions you wish to utlize
+    extensions:
+        - ecr
+
+    # Path to container env files
+    env_files_dir: docker-compose-config
+
+    # Path to container required files
+    files_dir: docker-compose-files
+
+    # Remote path to mounted volumesRemote path to mounted volumes
+    mount_dir: docker/var
+
 
 # Configuration for our production stage
 prod:
@@ -45,6 +56,12 @@ prod:
             # Type of registry, using ecr will trigger the ecr extension (Optional)
             type: ecr
 
+            # The tag that will be used when pushing/pulling (Default is 'latest')
+            tag: latest
+
+            # If True, skeppa will try push both a versioned image and with regular tag (Default is False)
+            use_versioning: False
+
             # ECR Extension specific settings
 
             # The region where your image are saved (Optional, is "us-east-1" by default)
@@ -69,6 +86,7 @@ prod:
         # Will upload the file from pwd/files/nginx.conf to prod.path/nginx/conf/nginx.conf
         - nginx/conf/nginx.conf:nginx.conf
 
-# Another stage configuration
+
+# Configuration for our dev stage
 dev:
-    ...
+    - example

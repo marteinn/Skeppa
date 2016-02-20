@@ -13,6 +13,7 @@ from fabric.utils import abort
 from jinja2 import Template
 
 import ext
+import settings as skeppa_settings
 from api import build, deploy, ping, push, setup  # NOQA
 
 
@@ -70,17 +71,48 @@ def _normalize_config(config):
     return config
 
 
+def _parse_settings(data):
+
+    defaults = {
+        'env_files_dir': 'docker-compose-config',
+        'files_dir': 'docker-compose-files',
+        'extensions': []
+    }
+    settings = {}
+    settings.update(defaults)
+    settings.update(data)
+
+    return settings
+
+
 if __name__ == 'main':
-    config_path = 'skeppa.yml'
-    if not os.path.exists(config_path):
-        abort('Config file {0} was not found'.format(config_path))
+    # Load configuration
+    search_files = ['skeppa.yml', 'skeppa.yaml']
+    config_path = None
+
+    for path in search_files:
+        if os.path.exists(path):
+            config_path = path
+            break
+
+    if not config_path:
+        abort('Config file {0} was not found'.format(search_files[0]))
 
     config = _load_config(config_path)
-    extensions = config.pop('extensions', [])
 
-    for ext_name in extensions:
+    # Manage settings
+    settings_data = config.pop('settings', {})
+
+    instance = skeppa_settings.Settings(values=settings_data)
+    skeppa_settings.use(instance)
+
+    settings = skeppa_settings.get_settings()
+
+    # Activate extensions
+    for ext_name in settings.extensions:
         extension = importlib.import_module('ext.{0}'.format(ext_name))
 
         ext.register(extension.extension)
 
+    # Create stages
     _create_stages(config)
