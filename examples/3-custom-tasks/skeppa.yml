@@ -1,0 +1,21 @@
+settings:
+    tasks:
+        - tasks.backup
+        - tasks.custom_command
+
+demo:
+    project: test-project
+    hosts: ssh.test.com
+    user: root
+    path: /home/root
+    key_filename: ~/.ssh/id_rsa.pub
+    image:
+        tag: latest
+        name: django-test
+        path: src
+        repository:
+            url: image.registry.com/image
+    env_files:
+        - web.env
+        - db.env
+    compose_files: docker-compose-prod.yml
