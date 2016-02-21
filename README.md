@@ -25,7 +25,7 @@ To install Skeppa you need Python 2.7, docker and docker-compose.
 
 First off, head to your project and install skeppa: `pip install skeppa`.
 
-Time to setup deployment instructions. This simple example below will try to build a image called app, push to registry, then deploy on remote machine using the docker-compose file `docker-compose-prod.yml`
+Time to setup deployment instructions. This simple example below will try to build a image called app, push to registry, then deploy on remote machine using the docker-compose file.
 
 1. `touch skeppa.yaml`
 2. In your skeppa.yaml, add the following:
@@ -46,12 +46,12 @@ Time to setup deployment instructions. This simple example below will try to bui
     ```
 
     _(This example requires docker image called `app` in your project folder, a working docker repository and a working `docker-compose.yml`)._
-    
+
     _Want a full annotated [skeppa.yaml](https://github.com/marteinn/Skeppa/blob/develop/skeppa.annotated.yaml)?_
-    
 
 
-3. Now run `skeppa prod setup`, this will upload `docker-compose-prod.yml` to your prod path.
+
+3. Now run `skeppa prod setup`, this will upload `docker-compose.yml` to your prod path.
 4. Time to build and push your docker image, `skeppa prod build`
 5. Now when the image has been built and is in your repository, type `skeppa prod deploy` to deploy the image on your remote machine.
 6. Done!
@@ -82,19 +82,7 @@ The tool consists of 4 commands, they can run in conjunction with eachother.
 
 ## Skeppa?
 
-The name is a wordplay with the swedish word for ship = skeppa.
-
-
-## TODO:
-- [x] Handle aws dependency for ecr extension
-- [ ] Add image cleanup for ecr extension
-- [x] Find out the best way to create a 'pluggable' extension system
-- [x] Publish on pip
-- [ ] Add the option to specify your own config
-- [x] Add autoload for the config file skepparc.txt
-- [x] Rename fabfile to main
-- [x] Add annotated skeppa.yaml
-- [ ] Add tests
+The name is a wordplay with the swedish word for "to ship" = "skeppa".
 
 
 ## Credits/refefences
