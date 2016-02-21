@@ -13,6 +13,10 @@ settings:
     # Remote path to mounted volumesRemote path to mounted volumes
     mount_dir: docker/var
 
+    # Load custom fabric tasks
+    tasks:
+        - tasks
+
 
 # Configuration for our production stage
 prod:

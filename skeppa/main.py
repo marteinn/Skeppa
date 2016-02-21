@@ -85,6 +85,17 @@ def _parse_settings(data):
     return settings
 
 
+def _load_custom_tasks(tasks):
+    sys.path.append(os.getcwd())
+
+    for task_path in tasks:
+        name = task_path.split(".")[-1]
+        try:
+            globals()[name] = importlib.import_module(task_path)
+        except ImportError as e:  # NOQA
+            abort('Task "{0}" not found'.format(task_path))
+
+
 if __name__ == 'main':
     # Load configuration
     search_files = ['skeppa.yml', 'skeppa.yaml']
@@ -111,8 +122,10 @@ if __name__ == 'main':
     # Activate extensions
     for ext_name in settings.extensions:
         extension = importlib.import_module('ext.{0}'.format(ext_name))
-
         ext.register(extension.extension)
+
+    # Load any extra tasks
+    _load_custom_tasks(settings.tasks)
 
     # Create stages
     _create_stages(config)
