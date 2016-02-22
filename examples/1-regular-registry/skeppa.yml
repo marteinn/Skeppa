@@ -18,4 +18,3 @@ prod:
     files:
         - db/data
         - nginx/conf/nginx.conf:nginx.conf
-

@@ -1,5 +1,7 @@
-extensions:
-    - ecr
+settings:
+    extensions:
+        - ecr
+
 prod:
     project: test-project
     hosts: {{ PROD_HOST }}

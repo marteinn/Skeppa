@@ -4,7 +4,8 @@ class Settings(object):
         'env_files_dir': 'docker-compose-config',
         'files_dir': 'docker-compose-files',
         'mount_dir': 'docker/var',
-        'extensions': []
+        'extensions': [],
+        'tasks': []
     }
 
     values = {}
@@ -29,6 +30,10 @@ class Settings(object):
     @property
     def mount_dir(self):
         return self.values.get('mount_dir')
+
+    @property
+    def tasks(self):
+        return self.values.get('tasks')
 
     def __str__(self):
         return '{0}'.format(self.values)
