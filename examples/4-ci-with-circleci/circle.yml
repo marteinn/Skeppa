@@ -1,0 +1,43 @@
+machine:
+    pre:
+        # Upgrade docker to 1.10.0
+        - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+    python:
+        version: 2.7
+    services:
+        - docker
+
+dependencies:
+    cache_directories:
+        - "~/docker"
+    pre:
+        - pip install --upgrade pip
+        - pip install docker-compose
+        - pip install skeppa
+        - pip install awscli
+
+test:
+    pre:
+        - set | grep PROD_ > "skeppa.env"
+        - skeppa prod build
+    override:
+        - docker-compose -f docker-compose-test.yml run web
+    post:
+        # Stop all containers
+        - docker stop $(docker ps -a -q)
+
+        # Retrive and save logs
+        - docker logs docker_db_1 > $CIRCLE_TEST_REPORTS/db.log
+        - docker logs docker_web_run_1 > $CIRCLE_TEST_REPORTS/test.log
+
+deployment:
+    stage:
+        branch: develop
+        commands:
+            - skeppa stage push
+            - skeppa stage deploy
+    prod:
+        branch: master
+        commands:
+            - skeppa prod push
+            - skeppa prod deploy

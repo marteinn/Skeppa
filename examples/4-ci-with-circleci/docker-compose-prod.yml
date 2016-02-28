@@ -1,0 +1,32 @@
+# Prod
+db:
+    image: postgres
+    restart: always
+    env_file:
+        - docker-compose-config/db.env
+    volumes:
+        - ./docker/var/lib/postgresql/data:/var/lib/postgresql/data:rw
+
+nginx:
+    image: nginx
+    links:
+        - web:web
+    restart: always
+    ports:
+        - "80:80"
+    volumes:
+        - ./docker/var/nginx.conf:/etc/nginx/nginx.conf
+        - ./docker/var/shared:/shared:rw
+        - ./docker/var/log:/var/log:rw
+    volumes_from:
+        - web
+
+web:
+    image: 191919191.aws.com
+    restart: always
+    ports:
+        - "8080"
+    links:
+        - db
+    env_file:
+        - docker-compose-config/web.env
