@@ -179,11 +179,12 @@ def deploy():
 
         ext.dispatch("before_deploy", image)
 
-        repository = image.get('repository')
-        release_tag = image.get('tag', 'latest')
+        env.run("docker-compose -f {0} -p {1} stop".format(compose_file,
+                                                           env.project))
 
         # Pull latest repro changes
-        env.run("docker pull {0}:{1}".format(repository['url'], release_tag))
+        env.run("docker-compose -f {0} -p {1} pull".format(compose_file,
+                                                           env.project))
 
         # Restart web container
         env.run("docker-compose -f {0} -p {1} up -d".format(compose_file,
