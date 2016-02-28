@@ -177,10 +177,22 @@ def deploy():
         image = env.image
         compose_file = env.compose_files[0]
 
-        ext.dispatch("before_deploy", image)
-
+        container_name = image.get('container_name', None)
         repository = image.get('repository')
         release_tag = image.get('tag', 'latest')
+
+        ext.dispatch("before_deploy", image)
+
+        # Stop all containers
+        env.run("docker-compose -f {0} -p {1} stop".format(compose_file,
+                                                           env.project))
+
+        # Remove previous container
+        if container_name:
+            env.run("docker-compose -f {0} -p {1} rm {2} -f".format(
+                compose_file,
+                env.project,
+                container_name))
 
         # Pull latest repro changes
         env.run("docker pull {0}:{1}".format(repository['url'], release_tag))
@@ -188,3 +200,9 @@ def deploy():
         # Restart web container
         env.run("docker-compose -f {0} -p {1} up -d".format(compose_file,
                                                             env.project))
+
+        ext.dispatch("after_deploy", image)
+
+    # Remove dangeling images
+    env.run("docker images --quiet --filter=dangling=true"
+            " | xargs --no-run-if-empty docker rmi")
