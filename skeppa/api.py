@@ -126,14 +126,18 @@ def _build_image(image):
     use_versioning = image.get('use_versioning', False)
     repository = image.get('repository')
     release_tag = image.get('tag', 'latest')
+    extra_args = image.get('extra_args', "")
 
-    local("docker build -t {0}:{1} {2}".format(image.get('name'), release_tag,
-                                               image_path))
+    local("docker build {0} -t {1}:{2} {3}".format(extra_args,
+                                                   image.get('name'),
+                                                   release_tag,
+                                                   image_path))
 
     if use_versioning and version:
-        local("docker build -t {0}:{1} {2}".format(repository['url'],
-                                                   version,
-                                                   image_path))
+        local("docker build {0} -t {1}:{2} {3}".format(extra_args,
+                                                       repository['url'],
+                                                       version,
+                                                       image_path))
 
     local("docker tag {0}:{1} {2}:{3}".format(image['name'], release_tag,
                                               repository['url'], release_tag))
