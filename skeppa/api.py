@@ -179,16 +179,20 @@ def deploy():
 
         ext.dispatch("before_deploy", image)
 
-        env.run("docker-compose -f {0} -p {1} stop".format(compose_file,
-                                                           env.project))
+        # Stop containers
+        env.run("docker-compose -f {0} -p {1} stop".format(
+            compose_file,
+            env.project))
 
-        # Pull latest repro changes
-        env.run("docker-compose -f {0} -p {1} pull".format(compose_file,
-                                                           env.project))
+        # Pull and rebuild
+        env.run("docker-compose -f {0} -p {1} build --pull".format(
+            compose_file,
+            env.project))
 
         # Restart web container
-        env.run("docker-compose -f {0} -p {1} up -d".format(compose_file,
-                                                            env.project))
+        env.run("docker-compose -f {0} -p {1} up -d".format(
+            compose_file,
+            env.project))
 
         ext.dispatch("after_deploy", image)
 
