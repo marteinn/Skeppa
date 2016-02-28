@@ -177,22 +177,29 @@ def deploy():
         image = env.image
         compose_file = env.compose_files[0]
 
+        container_name = image.get('container_name', None)
+        repository = image.get('repository')
+        release_tag = image.get('tag', 'latest')
+
         ext.dispatch("before_deploy", image)
 
-        # Stop containers
-        env.run("docker-compose -f {0} -p {1} stop".format(
-            compose_file,
-            env.project))
+        # Stop all containers
+        env.run("docker-compose -f {0} -p {1} stop".format(compose_file,
+                                                           env.project))
 
-        # Pull and rebuild
-        env.run("docker-compose -f {0} -p {1} build --pull".format(
-            compose_file,
-            env.project))
+        # Remove previous container
+        if container_name:
+            env.run("docker-compose -f {0} -p {1} rm {2} -f".format(
+                compose_file,
+                env.project,
+                container_name))
+
+        # Pull latest repro changes
+        env.run("docker pull {0}:{1}".format(repository['url'], release_tag))
 
         # Restart web container
-        env.run("docker-compose -f {0} -p {1} up -d".format(
-            compose_file,
-            env.project))
+        env.run("docker-compose -f {0} -p {1} up -d".format(compose_file,
+                                                            env.project))
 
         ext.dispatch("after_deploy", image)
 
