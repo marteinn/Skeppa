@@ -38,6 +38,7 @@ class Ecr(Extension):
 
         repository = image.get('repository')
         release_tag = image.get('tag', 'latest')
+        repository_url = repository.get('url')
         region = repository.get('aws_region', 'us-east-1')
         profile = repository.get('aws_local_profile', '')
 
@@ -51,7 +52,7 @@ class Ecr(Extension):
             }
 
             delete_command = "aws ecr batch-delete-image --repository-name {0} \
-                --image-ids imageTag={1}".format(repository, release_tag)
+                --image-ids imageTag={1}".format(repository_url, release_tag)
 
             delete_command += self._build_cli_args(delete_args)
             env.run(delete_command)
