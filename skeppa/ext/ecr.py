@@ -55,7 +55,7 @@ class Ecr(Extension):
                 --image-ids imageTag={1}".format(repository_url, release_tag)
 
             delete_command += self._build_cli_args(delete_args)
-            env.run(delete_command)
+            local(delete_command)
         except:
             pass
 
