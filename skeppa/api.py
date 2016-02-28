@@ -189,3 +189,9 @@ def deploy():
         # Restart web container
         env.run("docker-compose -f {0} -p {1} up -d".format(compose_file,
                                                             env.project))
+
+        ext.dispatch("after_deploy", image)
+
+    # Remove dangeling images
+    env.run("docker images --quiet --filter=dangling=true"
+            " | xargs --no-run-if-empty docker rmi")
