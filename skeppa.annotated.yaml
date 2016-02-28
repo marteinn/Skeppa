@@ -52,6 +52,9 @@ prod:
         # Path to docker image
         path: src
 
+        # Add additional arguments to the build command (such as --rm etc)
+        extra_args: --rm=false
+
         # The repository you wish to deploy your image to
         repository:
             # Repository url
