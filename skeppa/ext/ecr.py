@@ -38,6 +38,7 @@ class Ecr(Extension):
 
         repository = image.get('repository')
         release_tag = image.get('tag', 'latest')
+
         registry_id = repository.get('registry_id', '')
         repository_url = repository.get('url')
         region = repository.get('aws_region', 'us-east-1')
