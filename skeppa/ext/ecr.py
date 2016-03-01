@@ -4,7 +4,6 @@ import imp
 
 from fabric.api import local, run
 from fabric.utils import abort
-from fabric.state import env
 
 from . import Extension
 
@@ -87,6 +86,7 @@ class Ecr(Extension):
         for arg in auth_args:
             if not auth_args[arg]:
                 continue
+
             auth_command += " --%s=%s" % (arg, auth_args[arg])
 
         method("$(%s)" % auth_command)
