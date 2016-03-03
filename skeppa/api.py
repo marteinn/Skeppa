@@ -160,7 +160,7 @@ def push():
         images = [env.image]
 
     for image in images:
-        _push_image(env.image)
+        _push_image(image)
 
 
 def _push_image(image):
