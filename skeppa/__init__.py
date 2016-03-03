@@ -10,7 +10,7 @@ skeppa
 
 
 __title__ = "skeppa"
-__version__ = "1.4.0"
-__build__ = 140
+__version__ = "1.5.0"
+__build__ = 150
 __license__ = "MIT"
 __copyright__ = "Copyright 2016 Martin Sandström"
