@@ -25,7 +25,7 @@ To install Skeppa you need Python 2.7, docker and docker-compose.
 
 First off, head to your project and install skeppa: `pip install skeppa`.
 
-Time to setup deployment instructions. This simple example below will try to build a image called app, push to registry, then deploy on remote machine using the docker-compose file.
+Time to setup deployment instructions. This simple example below build a image called app, push it to a registry, then deploy on remote machine using the docker-compose file.
 
 1. `touch skeppa.yaml`
 2. In your skeppa.yaml, add the following:
@@ -34,7 +34,7 @@ Time to setup deployment instructions. This simple example below will try to bui
     prod:
         project: test-project
         hosts: ssh.yourhost.com
-        user:  ssh-user
+        user: ssh-user
         path: /home/youruser/yourproject/
         key_filename: ~/.ssh/id_rsa.pub
         image:
@@ -66,6 +66,9 @@ Want more [examples](https://github.com/marteinn/Skeppa/tree/develop/examples/)?
 
 - How can I include env-variables in my `skeppa.yaml`?
     - Just define your variables like this `{{ MY_VAR }}`. Example: `host: {{ HOST }}`.
+
+- Can I define my own custom `skeppa.yaml`, such as `skeppa-prod.yaml`?
+    - Sure! Add the argument `-skeppaconfig` in your command, like this: `skeppa prod ping  -skeppaconfig skeppa-prod.yaml`
 
 
 ## Usage

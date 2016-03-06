@@ -197,19 +197,11 @@ def deploy():
                                                            env.project))
 
         for image in images:
-            container_name = image.get('container_name', None)
             repository = image.get('repository')
             release_tag = image.get('tag', 'latest')
 
             # Trigger before deploy hooks
             ext.dispatch("before_deploy", image)
-
-            # Remove previous container
-            if container_name:
-                env.run("docker-compose -f {0} -p {1} rm {2} -f".format(
-                    compose_file,
-                    env.project,
-                    container_name))
 
             # Pull latest repro changes
             env.run("docker pull {0}:{1}".format(repository['url'],
