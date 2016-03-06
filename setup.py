@@ -38,7 +38,8 @@ except:
 setup(
     name="skeppa",
     version=skeppa.__version__,
-    description=(""),
+    description=("A docker deployment tool based on fabric and "
+                 "docker-compose"),
     long_description=long_description,
     author="Marteinn",
     author_email="martin@marteinn.se",
