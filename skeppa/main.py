@@ -72,7 +72,6 @@ def _normalize_config(config):
 
 
 def _parse_settings(data):
-
     defaults = {
         'env_files_dir': 'docker-compose-config',
         'files_dir': 'docker-compose-files',
@@ -101,6 +100,13 @@ if __name__ == 'main':
     search_files = ['skeppa.yml', 'skeppa.yaml']
     config_path = None
 
+    # Check if custom skeppa config is present
+    param_index = sys.argv.index('-skeppaconfig')
+
+    if param_index != -1 and len(sys.argv) > param_index+1:
+        search_files = [sys.argv[param_index+1]]
+
+    # Make sure config exist in io
     for path in search_files:
         if os.path.exists(path):
             config_path = path
