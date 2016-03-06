@@ -67,6 +67,9 @@ Want more [examples](https://github.com/marteinn/Skeppa/tree/develop/examples/)?
 - How can I include env-variables in my `skeppa.yaml`?
     - Just define your variables like this `{{ MY_VAR }}`. Example: `host: {{ HOST }}`.
 
+- Can I define my own custom `skeppa.yaml`, such as `skeppa-prod.yaml`?
+    - Sure! Add the argument `-skeppaconfig` in your command, like this: `skeppa prod ping  -skeppaconfig skeppa-prod.yaml`
+
 
 ## Usage
 
