@@ -101,7 +101,10 @@ if __name__ == 'main':
     config_path = None
 
     # Check if custom skeppa config is present
-    param_index = sys.argv.index('-skeppaconfig')
+    try:
+        param_index = sys.argv.index('-skeppaconfig')
+    except ValueError as e:
+        param_index = -1
 
     if param_index != -1 and len(sys.argv) > param_index+1:
         search_files = [sys.argv[param_index+1]]
