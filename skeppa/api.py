@@ -81,8 +81,24 @@ def _upload_files(files):
         local_path = os.path.join(local_files_dir, local_path)
         remote_dir = os.path.dirname(remote_path)
 
-        env.run('mkdir -p {0}'.format(remote_dir))
-        put(local_path, remote_path)
+        # Upload file, otherwise sync directory
+        if not os.path.isdir(local_path):
+            env.run('mkdir -p {0}'.format(remote_dir))
+            put(local_path, remote_path)
+        else:
+            local_path = local_path.rstrip('/') + '/'
+            remote_path = remote_path.rstrip('/') + '/'
+            parent_dir = os.path.abspath(remote_path + "/../")
+
+            env.run('mkdir -p {0}'.format(parent_dir))
+            put(local_path, parent_dir)
+
+            local_dir = os.path.basename(os.path.dirname(local_path))
+            remote_dir = os.path.basename(os.path.dirname(remote_path))
+
+            if local_dir != remote_dir:
+                env.run('mv {0}/{1} {2}/{3}'.format(parent_dir, local_dir,
+                                                    parent_dir, remote_dir))
 
 
 def _upload_env_files(env_files):
