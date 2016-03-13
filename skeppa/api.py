@@ -4,7 +4,6 @@ import six
 from fabric.api import local
 from fabric.decorators import task
 from fabric.operations import put
-from fabric.api import cd
 from fabric.state import env
 from utils import dockerfile
 import settings as skeppa_settings
@@ -207,7 +206,7 @@ def deploy():
     if not isinstance(env.image, list):
         images = [env.image]
 
-    with cd(env.path):
+    with env.cd(env.path):
         # Stop all containers
         env.run("docker-compose -f {0} -p {1} stop".format(compose_file,
                                                            env.project))
