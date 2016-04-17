@@ -71,19 +71,6 @@ def _normalize_config(config):
     return config
 
 
-def _parse_settings(data):
-    defaults = {
-        'env_files_dir': 'docker-compose-config',
-        'files_dir': 'docker-compose-files',
-        'extensions': []
-    }
-    settings = {}
-    settings.update(defaults)
-    settings.update(data)
-
-    return settings
-
-
 def _load_custom_tasks(tasks):
     sys.path.append(os.getcwd())
 
