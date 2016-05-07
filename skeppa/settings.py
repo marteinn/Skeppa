@@ -1,4 +1,3 @@
-
 class Settings(object):
     default_values = {
         'env_files_dir': 'docker-compose-config',
