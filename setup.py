@@ -7,6 +7,7 @@ import pip
 
 from setuptools import setup, find_packages
 from pip.req import parse_requirements
+
 import skeppa
 
 
@@ -22,9 +23,9 @@ requires = parse_requirements("requirements/install.txt",
                               session=pip.download.PipSession())
 install_requires = [str(ir.req) for ir in requires]
 
-#requires = parse_requirements("requirements/tests.txt",
-                              #session=pip.download.PipSession())
-#tests_require = [str(ir.req) for ir in requires]
+# requires = parse_requirements("requirements/tests.txt",
+                              # session=pip.download.PipSession())
+# tests_require = [str(ir.req) for ir in requires]
 
 
 # Convert markdown to rst

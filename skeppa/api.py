@@ -4,8 +4,8 @@ import six
 from fabric.api import local
 from fabric.decorators import task
 from fabric.operations import put
-from fabric.api import cd
 from fabric.state import env
+
 from utils import dockerfile
 import settings as skeppa_settings
 import ext
@@ -207,11 +207,8 @@ def deploy():
     if not isinstance(env.image, list):
         images = [env.image]
 
-    with cd(env.path):
-        # Stop all containers
-        env.run("docker-compose -f {0} -p {1} stop".format(compose_file,
-                                                           env.project))
-
+    with env.cd(env.path):
+        # Update images
         for image in images:
             repository = image.get('repository')
             release_tag = image.get('tag', 'latest')
@@ -223,6 +220,9 @@ def deploy():
             env.run("docker pull {0}:{1}".format(repository['url'],
                                                  release_tag))
 
+        # Stop all containers
+        env.run("docker-compose -f {0} -p {1} stop".format(compose_file,
+                                                           env.project))
         # Start all containers
         env.run("docker-compose -f {0} -p {1} up -d".format(compose_file,
                                                             env.project))

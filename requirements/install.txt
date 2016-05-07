@@ -1,4 +1,5 @@
 Fabric==1.10.2
+PyCrypto==2.6.1
 Jinja2==2.8
 PyYAML==3.11
 six==1.10.0

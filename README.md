@@ -51,9 +51,10 @@ Time to setup deployment instructions. This simple example below build a image c
 
 
 
-3. Now run `skeppa prod setup`, this will upload `docker-compose.yml` to your prod path.
-4. Time to build and push your docker image, `skeppa prod build`
-5. Now when the image has been built and is in your repository, type `skeppa prod deploy` to deploy the image on your remote machine.
+3. Then run `skeppa prod setup`, this will upload `docker-compose.yml` to your prod path.
+4. Time to build a docker image of your app `skeppa prod build`
+5. Now send the image you just built to your registry `skeppa prod push`
+5. Finally type `skeppa prod deploy` to deploy the image on your remote machine and create running containers.
 6. Done!
 
 Want more [examples](https://github.com/marteinn/Skeppa/tree/develop/examples/)?
@@ -88,7 +89,17 @@ The tool consists of 4 commands, they can run in conjunction with eachother.
 The name is a wordplay with the swedish word for "to ship" = "skeppa".
 
 
-## Credits/refefences
+## Git hooks
+
+These hooks will automatically bump the application version when using `git flow release ...`
+
+```
+ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-release-start
+ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start
+```
+
+
+## Credits/references
 
 - [Dynamic Fabric Commands For Managing Cloud Servers](http://www.asktherelic.com/2011/02/17/dynamic-fabric-commands-for-managing-cloud-servers/)
 - [Class-based Fabric scripts via a Python metaprogramming hack](http://www.saltycrane.com/blog/2010/09/class-based-fabric-scripts-metaprogramming-hack/)
