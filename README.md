@@ -89,7 +89,17 @@ The tool consists of 4 commands, they can run in conjunction with eachother.
 The name is a wordplay with the swedish word for "to ship" = "skeppa".
 
 
-## Credits/refefences
+## Git hooks
+
+These hooks will automatically bump the application version when using `git flow release ...`
+
+```
+ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-release-start
+ln -nfs $PWD/git-hooks/bump-version.sh .git/hooks/post-flow-hotfix-start
+```
+
+
+## Credits/references
 
 - [Dynamic Fabric Commands For Managing Cloud Servers](http://www.asktherelic.com/2011/02/17/dynamic-fabric-commands-for-managing-cloud-servers/)
 - [Class-based Fabric scripts via a Python metaprogramming hack](http://www.saltycrane.com/blog/2010/09/class-based-fabric-scripts-metaprogramming-hack/)
