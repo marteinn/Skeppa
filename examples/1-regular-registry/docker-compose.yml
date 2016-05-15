@@ -1,29 +1,31 @@
 # Local/Dev
-db:
-    image: postgres
-    restart: always
-    env_file:
-        - docker-compose-config/db.env
+version: '2'
+services:
+    db:
+        image: postgres
+        restart: always
+        env_file:
+            - docker-compose-config/db.env
 
-nginx:
-    image: nginx
-    links:
-        - web:web
-    restart: always
-    ports:
-        - "80:80"
-    volumes:
-        - ./docker-compose-files/nginx.conf:/etc/nginx/nginx.conf
-    volumes_from:
-        - web
+    nginx:
+        image: nginx
+        links:
+            - web:web
+        restart: always
+        ports:
+            - "80:80"
+        volumes:
+            - ./docker-compose-files/nginx.conf:/etc/nginx/nginx.conf
+        volumes_from:
+            - web
 
-web:
-    build: ./web
-    volumes:
-        - ./web:/web
-    ports:
-        - "8080:8080"
-    links:
-        - db
-    env_file:
-        - docker-compose-config/web.env
+    web:
+        build: ./web
+        volumes:
+            - ./web:/web
+        ports:
+            - "8080:8080"
+        links:
+            - db
+        env_file:
+            - docker-compose-config/web.env
