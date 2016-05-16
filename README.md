@@ -2,7 +2,7 @@
 
 # Skeppa
 
-A docker deployment tool built in python. It is based on [fabric](http://www.fabfile.org/) and uses docker-compose to orchestrate and manage containers.
+A docker deployment tool built in python. It is based on [fabric](http://www.fabfile.org/) and uses docker-compose to orchestrate and manage containers. You can use it to build images, push images and trigger updates on remote machines.
 
 
 ## Requirements
