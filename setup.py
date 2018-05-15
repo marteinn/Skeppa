@@ -3,10 +3,8 @@
 
 import os
 import sys
-import pip
 
 from setuptools import setup, find_packages
-from pip.req import parse_requirements
 
 import skeppa
 
@@ -19,14 +17,13 @@ package_exclude = ("tests*", "examples*")
 packages = find_packages(exclude=package_exclude)
 
 # Handle requirements
-requires = parse_requirements("requirements/install.txt",
-                              session=pip.download.PipSession())
-install_requires = [str(ir.req) for ir in requires]
-
-# requires = parse_requirements("requirements/tests.txt",
-                              # session=pip.download.PipSession())
-# tests_require = [str(ir.req) for ir in requires]
-
+install_requires = [
+    "Fabric==1.10.2",
+    "PyCrypto==2.6.1",
+    "Jinja2==2.8",
+    "PyYAML==3.11",
+    "six==1.10.0",
+]
 
 # Convert markdown to rst
 try:
@@ -48,7 +45,6 @@ setup(
     packages=packages,
     include_package_data=True,
     install_requires=install_requires,
-    # tests_require=tests_require,
     entry_points={
         "console_scripts": [
             "skeppa = skeppa.scripts.skeppa:main",
