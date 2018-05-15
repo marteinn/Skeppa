@@ -52,7 +52,7 @@ setup(
     },
     license="MIT",
     zip_safe=False,
-    classifiers=(
+    classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Console",
         "Environment :: Web Environment",
@@ -67,5 +67,5 @@ setup(
         "Topic :: Software Development :: Libraries",
         "Topic :: System :: Software Distribution",
         "Topic :: System :: Systems Administration",
-    ),
+    ],
 )
