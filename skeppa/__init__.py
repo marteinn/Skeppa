@@ -4,13 +4,13 @@
 """
 skeppa
 ------------
-:copyright: (c) 2016 Martin Sandström
+:copyright: (c) 2016-2018 Martin Sandström
 :license: MIT, see LICENSE for more details.
 """
 
 
 __title__ = "skeppa"
-__version__ = '2.0.1'
-__build__ = 201
+__version__ = '2.0.2'
+__build__ = 202
 __license__ = "MIT"
-__copyright__ = "Copyright 2016 Martin Sandström"
+__copyright__ = "Copyright 2016-2018 Martin Sandström"
