@@ -89,7 +89,7 @@ class Ecr(Extension):
 
             auth_command += " --%s=%s" % (arg, auth_args[arg])
 
-        method("$(%s)" % auth_command)
+        method("$(%s --no-include-email)" % auth_command)
 
 
 extension = Ecr
