@@ -197,6 +197,17 @@ def _push_image(image):
 
 
 @task
+def debug():
+    images = env.image
+
+    if not isinstance(env.image, list):
+        images = [env.image]
+
+    for image in images:
+        ext.dispatch("debug", image)
+
+
+@task
 def deploy():
     '''
     Pull latest image and restart containers

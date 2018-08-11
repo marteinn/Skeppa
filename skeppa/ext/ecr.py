@@ -31,6 +31,9 @@ class Ecr(Extension):
 
         return command
 
+    def debug(self, _image):
+        local("aws configure list")
+
     def before_push(self, image):
         if not self._verify_image(image):
             return
