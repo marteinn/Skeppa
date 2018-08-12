@@ -104,7 +104,7 @@ class Ecr(Extension):
             auth_command += " --%s=%s" % (arg, auth_args[arg])
 
         if no_include_email:
-            auth_command = '{} --no-include-mail'.format(auth_command)
+            auth_command = '{} --no-include-email'.format(auth_command)
 
         method("$(%s)" % auth_command)
 
