@@ -41,8 +41,15 @@ class Ecr(Extension):
         repository_url = repository.get('url')
         region = repository.get('aws_region', 'us-east-1')
         profile = repository.get('aws_local_profile', '')
+        no_include_mail = repository.get('aws_local_no_include_mail', True)
 
-        self._login(local, image, region=region, profile=profile)
+        self._login(
+            local,
+            image,
+            region=region,
+            profile=profile,
+            no_include_mail=no_include_mail,
+        )
 
         # Try to delete previous release_tag from ECR
         try:
@@ -71,10 +78,17 @@ class Ecr(Extension):
         repository = image.get('repository')
         region = repository.get('aws_region', 'us-east-1')
         profile = repository.get('aws_profile', '')
+        no_include_mail = repository.get('aws_no_include_mail', True)
 
-        self._login(run, image, region=region, profile=profile)
+        self._login(
+            run,
+            image,
+            region=region,
+            profile=profile,
+            no_include_mail=no_include_mail,
+        )
 
-    def _login(self, method, image, region, profile=""):
+    def _login(self, method, image, region, profile="", no_include_mail=True):
         # Authenticate with ecr
         auth_args = {
             "region": region,
@@ -89,7 +103,10 @@ class Ecr(Extension):
 
             auth_command += " --%s=%s" % (arg, auth_args[arg])
 
-        method("$(%s --no-include-email)" % auth_command)
+        if no_include_mail:
+            auth_command = '{} --no-include-mail'.format(auth_command)
+
+        method("$(%s)" % auth_command)
 
 
 extension = Ecr
