@@ -77,11 +77,11 @@ prod:
             # Your local awscli profile (Optional)
             aws_local_profile: my_local_profile
 
-            # If you run docker lower than 17.06 you need to supress --no-include_mail (Default True)
-            aws_no_include_mail: True
+            # If you run docker lower than 17.06 you need to supress --no-include_email (Default True)
+            aws_no_include_email: True
 
             # Same setting as above (but for the local machine)
-            aws_local_no_include_mail: True
+            aws_local_no_include_email: True
 
     # Any env file you want to upload and associate with container (is located in docker-compose-config and will be saved to prod.path/docker-compose-config)
     env_files:
