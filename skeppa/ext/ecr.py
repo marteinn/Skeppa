@@ -41,14 +41,14 @@ class Ecr(Extension):
         repository_url = repository.get('url')
         region = repository.get('aws_region', 'us-east-1')
         profile = repository.get('aws_local_profile', '')
-        no_include_mail = repository.get('aws_local_no_include_mail', True)
+        no_include_email = repository.get('aws_local_no_include_email', True)
 
         self._login(
             local,
             image,
             region=region,
             profile=profile,
-            no_include_mail=no_include_mail,
+            no_include_email=no_include_email,
         )
 
         # Try to delete previous release_tag from ECR
@@ -68,7 +68,7 @@ class Ecr(Extension):
 
             delete_command += self._build_cli_args(delete_args)
             local(delete_command)
-        except:
+        except:  # NOQA
             pass
 
     def before_deploy(self, image):
@@ -78,17 +78,17 @@ class Ecr(Extension):
         repository = image.get('repository')
         region = repository.get('aws_region', 'us-east-1')
         profile = repository.get('aws_profile', '')
-        no_include_mail = repository.get('aws_no_include_mail', True)
+        no_include_email = repository.get('aws_no_include_email', True)
 
         self._login(
             run,
             image,
             region=region,
             profile=profile,
-            no_include_mail=no_include_mail,
+            no_include_email=no_include_email,
         )
 
-    def _login(self, method, image, region, profile="", no_include_mail=True):
+    def _login(self, method, image, region, profile="", no_include_email=True):
         # Authenticate with ecr
         auth_args = {
             "region": region,
@@ -103,7 +103,7 @@ class Ecr(Extension):
 
             auth_command += " --%s=%s" % (arg, auth_args[arg])
 
-        if no_include_mail:
+        if no_include_email:
             auth_command = '{} --no-include-mail'.format(auth_command)
 
         method("$(%s)" % auth_command)
